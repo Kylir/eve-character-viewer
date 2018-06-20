@@ -1,3 +1,6 @@
+# do not source control the secret key
+config/secret.js
+
 # Logs
 logs
 *.log

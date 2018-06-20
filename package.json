@@ -1,0 +1,28 @@
+{
+  "name": "eve-character-viewer",
+  "version": "0.0.1",
+  "description": "Dummy application to learn how to use the Eve Online ESI API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kylir/eve-character-viewer.git"
+  },
+  "keywords": [
+    "eve",
+    "online",
+    "esi"
+  ],
+  "author": "Jason Forest",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kylir/eve-character-viewer/issues"
+  },
+  "homepage": "https://github.com/Kylir/eve-character-viewer#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "got": "^8.3.1"
+  }
+}
