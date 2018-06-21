@@ -1,24 +1,31 @@
-const secretKey = require('./secret')
+// Create this file with your own private key
+// the content should be:
+// exports.secretKey = 'paste your secret key here'
+const secretKey = require('./secret').secretKey
 
-const config = {
+// These three parameters should be changed to match your own application
+const appCallbackUri = 'http://localhost/eve-auth-callback'
+const appClientID = '631b257a6b904b9e8a3d96f93720b189'
+const appState = 'waikyhanghang'
+
+// The scopes you registered - tweak as needed
+const scopes = [
+  'publicData',
+  'esi-skills.read_skills.v1',
+  'esi-skills.read_skillqueue.v1',
+  'esi-wallet.read_character_wallet.v1'
+]
+
+exports.config = {
   eveAuthBaseUrl: 'https://login.eveonline.com/oauth/authorize',
-  scopes: [
-    'publicData',
-    'esi-skills.read_skills.v1',
-    'esi-skills.read_skillqueue.v1',
-    'esi-wallet.read_character_wallet.v1'
-  ],
-  redirectUri: 'http://localhost/eve-auth-callback',
-  clientID: '631b257a6b904b9e8a3d96f93720b189',
   secretKey,
-  state: 'waikyhanghang',
+  state: appState,
+  clientID: appClientID,
   parameters: [
     'response_type=code',
-    'redirect_uri=' + redirectUri,
-    'client_id=' + clientID,
+    'redirect_uri=' + appCallbackUri,
+    'client_id=' + appClientID,
     'scope=' + scopes.join(' '),
-    'state=' + state
+    'state=' + appState
   ]
 }
-
-exports = config
