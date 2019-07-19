@@ -22,15 +22,9 @@ app.use(express.static('public'))
 // Auth callback from Eve
 app.get('/eve-auth-callback', (req, res) => {
 
-  if (req.session) {
-    console.log(req.session)
-  }
-
   const queryCode = req.query.code
-  const queryState = req.query.state //TODO: check the state for security
-
-  console.log(`Received code ${queryCode} and state ${queryState}`)
-
+  const queryState = req.query.state
+  
   if (queryState !== config.state) {
     res.status(400).json({ 'Error': 'Problem with the received state parameter:' + queryState })
   } else if (!queryCode) {
@@ -49,12 +43,8 @@ app.get('/eve-auth-callback', (req, res) => {
       }
     }
 
-    console.log(`POST ${tokenUrl} with options: ${JSON.stringify(options)}`)
-
     // Contact eve online server to get a JSON Token
     got(tokenUrl, options).then((response) => {
-      console.log(`Body received from ${tokenUrl}:`)
-      console.log(response.body)
       return response.body
 
     }).then(body => {
@@ -77,12 +67,13 @@ app.get('/eve-auth-callback', (req, res) => {
       })
 
     }).then(authInfo => {
-      console.log(`Token verified! Authentication info is: ${authInfo}`)
-      // save in the session
+      //Save info in the session object
       req.session.authInfo = authInfo
 
+      //Redirect to main page
+      res.redirect('./')
+
       // Retrieve some data from ESI!
-      // Query params
       const characterId = authInfo.decoded.sub.split(':')[2]
       const walletUrl = `https://esi.evetech.net/latest/characters/${characterId}/wallet`
       const authString = `Bearer ${authInfo.tokens.access_token}`
