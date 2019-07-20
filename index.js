@@ -4,7 +4,7 @@ const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
 const config = require('./config/config').config
-const utils = require('./src/utils')
+const utils = require('./server/utils')
 
 const app = express()
 
@@ -17,7 +17,8 @@ app.use(session({
 }))
 
 // Static content
-app.use(express.static('public'))
+// TODO: How to have a react app for the client AND a express js for the server?
+//app.use(express.static('client/public'))
 
 // Auth callback from Eve
 app.get('/eve-auth-callback', (req, res) => {
